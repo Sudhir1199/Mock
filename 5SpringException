@@ -1,0 +1,112 @@
+1) NoSuchBeanDefinationException
+
+//@Comonent annotation is not present 
+public class Teacher{
+
+
+}
+
+public class University{
+
+  @Autowired
+  private Teacher teacher;
+
+
+}
+
+// so in this case cant identify the "Teacher" bean 
+*********************************************************************************************************
+
+2)NoUniqueBeanDefinationException
+Interface University{
+
+
+}
+
+
+//Implementation classes
+@Component
+public class Student implements University{
+
+}
+
+@Component
+public class Teacher implements University{
+
+}
+
+// Buissness logic class
+@Component
+public class Record{
+
+    @Autowired
+    private University uni;
+
+}
+// Bean Ambiguty, got confuse between student and teacher 
+
+SOLUTION:-
+1) Using Qualifier
+@Component
+public class Record{
+
+    @Autowired
+    @Qualifier("Teacher")// 
+    private University uni;
+
+}
+
+2) NoUniqueDefinationException
+//Implementation classes
+@Component
+public class Student implements University{
+
+}
+
+@Component
+@Primary
+public class Teacher implements University{
+
+}
+
+//here we indicate that Teacher is our bean-defination for Univeristy 
+
+****************************************************************************************************
+3) BeanCreationException
+class Emp{
+   private Dept dept;
+  @Autowired
+  public Emp(Dept dept){
+    this.dept = dept;
+  
+  }
+
+}
+
+class Dept{
+ private Emp emp;
+ @Autowired
+public Dept(Emp emp){
+  this.emp = emp;
+}
+
+}
+//Circular Ambiguty where both class are waiting for their dependency to complete Constructor injection or 
+// instantiation
+
+Solution:-
+class Dept{
+ private Emp emp;
+
+ @Lazy
+ @Autowired
+public Dept(Emp emp){
+  this.emp = emp;
+}
+
+}
+// Using @Lazy we can defer the constructor injection of Dept and let Emp get over with its dependency injection
+
+**************************************************************************************************************'
+
+
