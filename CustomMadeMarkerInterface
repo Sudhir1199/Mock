@@ -1,0 +1,37 @@
+//Custom made 
+//Marker Interface
+public interface IDiscount{                  
+
+}
+
+
+//Implementation
+public class Student implements IDiscount{
+
+}
+
+
+//Buissness LOgic for validating if our input "object" is object/instance of marker class 
+public class DiscountUtils{
+
+  public boolean isDiscountEligible(Object object){
+
+       return true;
+
+  }
+  return false;
+
+}
+
+//main class
+public class App{
+   public static void main(String[] args){
+
+    DiscountUtils discountUtils = new DiscountUtils();
+    boolean returnVal = discountUtils.isDiscountEligible(new Student());
+    System.out.println(returnval)
+}
+
+//As per our above code we have our coustum made Marker interface  and which get implemented by student class
+//and after implementation we have our logic which validates if input class in main method is an instance/object 
+//of our marker class or if that class implements our marker class provides boolean value. 
