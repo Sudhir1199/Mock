@@ -1,0 +1,69 @@
+**Entity Manager** --> In JPA, the ENtityManager interface is used to allow applications to manage and
+search for entities in the relational databse. The eNtityManager is an API that manages the lifecyle
+of entity instances. An EntityManager object manages a set of entities that are defined by a persistence
+unit
+
+**Entity Manager Methods**-->https://www.digitalocean.com/community/tutorials/jpa-entitymanager-hibernate
+persist, merge,  remove , find...................
+
+**Transaction**--> Transaction is DBMC can be definded as set of logically related operation. It is the
+result of a request made by the user to access the contents of  the database and perform operation on it.
+**Methods**--> begin(), commit(), rollback()...................... 
+
+
+
+// Student Entity
+@Entity
+public class Student{
+
+//no arg contsructor
+//getter and setters
+
+}
+///---------------------------------------------------------------------
+// Interface for getting refernce from Respitory
+public interface StudentDao{
+  public void saveStudent(Student student);
+}
+
+//--------------------------------------------------------------------------
+// DataBase Handler or Repository
+public class StudentDAOimpl implements StudentDao{
+
+  @Autowired//--> Dependency Injection Field level
+  private EntityManager entityManager;
+
+  @Transactional
+  @Override
+  public void saveStudent(Student student){
+
+   Session session = entityManager.unwrap(Session.class);// method related to mongodb
+   session.save(student);
+}
+
+
+
+
+SPRING JDBC
+--> go through learn-jpa-and-hibernate in java file though we connect our application with h2 database 
+which is in-memory database which doesn;t required extra file for connection or datasource connection
+below is datasouce connection for mysql 
+
+@Confiduration
+@ComponentScan("com")
+@EnableTransactionManagement
+public class EmployeeConfig{
+
+ 
+ public DataSource datasource(){
+
+
+   
+
+
+}
+
+
+
+
+
